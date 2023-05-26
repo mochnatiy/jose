@@ -10,6 +10,7 @@ const p256 = Buffer.from([42, 134, 72, 206, 61, 3, 1, 7])
 const p384 = Buffer.from([43, 129, 4, 0, 34])
 const p521 = Buffer.from([43, 129, 4, 0, 35])
 const secp256k1 = Buffer.from([43, 129, 4, 0, 10])
+const brainpoolp256r1 = Buffer.from([43, 36, 3, 3, 2, 8, 1, 1, 7])
 
 export const weakMap: WeakMap<KeyObject, string> = new WeakMap()
 
@@ -23,6 +24,8 @@ const namedCurveToJOSE = (namedCurve: string) => {
       return 'P-521'
     case 'secp256k1':
       return 'secp256k1'
+    case 'brainpoolP256r1':
+        return 'brainpoolP256r1'
     default:
       throw new JOSENotSupported('Unsupported key curve for this operation')
   }
@@ -71,6 +74,8 @@ const getNamedCurve = (kee: unknown, raw?: boolean): string => {
           namedCurve = 'secp521r1'
         } else if (curveOid.equals(secp256k1)) {
           namedCurve = 'secp256k1'
+        } else if (curveOid.equals(brainpoolp256r1)) {
+          namedCurve = 'brainpoolP256r1'
         } else {
           throw new JOSENotSupported('Unsupported key curve for this operation')
         }

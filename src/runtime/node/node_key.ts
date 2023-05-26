@@ -16,6 +16,7 @@ const ecCurveAlgMap = new Map([
   ['ES256K', 'secp256k1'],
   ['ES384', 'P-384'],
   ['ES512', 'P-521'],
+  ['BP256R1', 'brainpoolP256r1'],
 ])
 
 export default function keyForCrypto(alg: string, key: KeyObject): KeyObject | SignKeyObjectInput {
@@ -82,7 +83,8 @@ export default function keyForCrypto(alg: string, key: KeyObject): KeyObject | S
     case 'ES256':
     case 'ES256K':
     case 'ES384':
-    case 'ES512': {
+    case 'ES512':
+    case 'BP256R1': {
       if (key.asymmetricKeyType !== 'ec') {
         throw new TypeError('Invalid key for this operation, its asymmetricKeyType must be ec')
       }
